@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div th:replace="~{/home :: fragmentNavTop}"></div>
+<div class="container1">
+    <div th:replace="~{/home :: fragmentNavLeft}"></div>
+
+    <div class="content">
+
+
+        <form method="POST" th:object="${Room}" style="width: 80%; margin: 15%">
+            <label>Loại Phòng: </label>
+            <select  name="typeRoom" th:field="*{type}" style="display: flex; border-radius: 15px;">
+                <option value="Single">Single</option>
+                <option value="Couple">Couple</option>
+                <option value="Family">Family</option>
+                <option value="Presidential">Presidential</option>
+            </select> <br/>
+            <label>Giá: </label>
+            <input type="text" th:field="*{priceDay}"/> <br/>
+            <label>Tình trạng: </label>
+            <select  name="typeRoom" th:field="*{isEmpty}"> <br/>
+                <option value="Trống">Trống</option>
+                <option value="Đã SD">Đã SD</option>
+            </select><br/>
+
+            <br/>
+            <button type="submit" class="btn btn-success aBtn" style="margin-left: 40%">
+                <i style="color: white;font-size: large" >  Thêm </i>
+            </button>
+
+        </form>
+
+    </div>
+</div>
+
+</body>
+</html>

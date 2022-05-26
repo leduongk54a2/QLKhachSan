@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Project</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" >
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{/home :: fragmentNavTop}"></div>
+<div class="container1">
+    <div th:replace="~{/home :: fragmentNavLeft}"></div>
+
+    <div class="content">
+        <div style="padding-left: 50px">
+            <h1>Đăng ký thành công</h1><br/>
+            <h2>Thông tin khách hàng: </h2><br/>
+            <input th:value="@{'Mã KH:  ' + ${Guest.guestId}}" style="width: 50%;font-size: large"  readonly > <br/>
+            <input th:value="@{'Họ Tên:  ' + ${Guest.guestName}}" style="width: 50%;font-size: large"  readonly > <br/>
+            <input th:value="@{'Ngày Sinh:  ' + ${Guest.birth}}" style="width: 50%;font-size: large"  readonly > <br/>
+            <input th:value="@{'mã CCCD:  ' + ${Guest.idCard}}" style="width: 50%;font-size: large"  readonly > <br/>
+            <input th:value="@{'Địa Chỉ:  ' + ${Guest.address}}" style="width: 50%;font-size: large"  readonly > <br/>
+            <input th:value="@{'Email:  ' + ${Guest.email}}" style="width: 50%;font-size: large"  readonly > <br/>
+            <input th:value="@{'SĐT:  ' + ${Guest.phoneNumber}}" style="width: 50%;font-size: large"  readonly > <br/>
+        </div>
+
+            <br/>
+        <h3 th:text="@{'Bạn đã đăng ký thành công với mã KH:'+${Guest.guestId}+' . Hãy bắt đầu đặt phòng!'}" style="color: red" ></h3>
+        <button class="btn btn-success aBtn" type="button">
+            <a class="fa fa-hotel" style="color: white;font-size: large;text-decoration: none"
+               th:href="@{/checkin}"> Đặt Phòng</a>
+        </button>
+
+
+    </div>
+</div>
+</body>
+</html>

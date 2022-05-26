@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css" >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+
+</head>
+<body>
+<!-- NAVBAR -->
+
+<!-- navtop -->
+<div class="navtop" th:fragment="fragmentNavTop">
+    <div id="logged" class="text-white font-bold btn-navtop text-1c25">
+        <span class="cursor-pointer" th:if="${message1 != null}" th:utext="${message1}" ></span>
+        <img class="avatar cursor-pointer" th:src="@{/images/amumu.webp}">
+    </div>
+
+</div>
+
+
+<div class="container1">
+    <!-- navleft -->
+    <div class="navleft" th:fragment="fragmentNavLeft">
+        <div style="padding-top: 1rem;" class="logo">
+            <img class="logo" th:src="@{/images/logo.png}">
+        </div>
+        <div class="menu text-white text-1">
+            <div id="nav-home" class="nav-item nav-item-parent">
+                <i style="font-size: 1.25rem;" class="fa fa-home pr-1" aria-hidden="true"></i>
+                <a th:href="@{/}" style="text-decoration: none;color: white">Khách Sạn</a>
+            </div>
+            <div   class="nav-item pl-3c4">
+                <a th:href="@{/dangky}" style="text-decoration: none;color: white">Đăng ký TTKH</a>
+            </div>
+            <div   class="nav-item pl-3c4">
+                <a th:href="@{/checkin}" style="text-decoration: none;color: white">Đặt Phòng</a>
+
+            </div>
+            <div   class="nav-item pl-3c4">
+                <a th:href="@{/checkout}" style="text-decoration: none;color: white">Trả Phòng</a>
+            </div>
+            <div   class="nav-item pl-3c4">
+                <a th:href="@{/khachhang}" style="text-decoration: none;color: white">QL TT Khách Hàng</a>
+            </div>
+            <div   class="nav-item pl-3c4">
+                <a th:href="@{/quanlyphong}" style="text-decoration: none;color: white">QL Phòng</a>
+            </div>
+            <div   class="nav-item pl-3c4">
+                <a th:href="@{/quanlynhanvien}" style="text-decoration: none;color: white">QL Nhân Viên</a>
+            </div>
+            <div id="btn-logout" class="logout" >
+                <i style="font-size: 1.25rem;" class="fa fa-sign-out pr-1" aria-hidden="true" ></i>
+                <a th:href="@{/logout}" style="text-decoration: none;color: white">Đăng xuất</a>
+            </div>
+        </div>
+        <!-- content -->
+        <div class="content">
+
+        </div>
+
+    </div>
+
+
+
+</body>
+
+</html>

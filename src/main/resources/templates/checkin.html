@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Project</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" >
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+<div th:replace="~{/home :: fragmentNavTop}"></div>
+<div class="container1">
+    <div th:replace="~{/home :: fragmentNavLeft}"></div>
+
+    <div class="content">
+        <div class="container" >
+            <form method="get" th:action="@{/checkin/search}">
+                <label>Loại Phòng: </label>
+                <select  name="keyword"  type="search" style=" border-radius: 15px;">
+                    <option th:selected="${check1=='All'}" value="All">All</option>
+                    <option th:selected="${check1=='Single'}" value="Single">Single</option>
+                    <option th:selected="${check1=='Couple'}" value="Couple">Couple</option>
+                    <option th:selected="${check1=='Family'}" value="Family">Family</option>
+                    <option th:selected="${check1=='Presidential'}"  value="Presidential">Presidential</option>
+                </select>
+                <button class="btn btn-success aBtn" type="submit" value="search">
+                    <a  style="color: white;font-size: large;text-decoration: none">Tìm</a>
+                </button>
+
+            </form>
+
+            <ul class="row"  >
+                <th:block th:each="Room: ${Rooms}">
+                    <li class="item col-md-3">
+                        <div class="item-content rounded show-info">
+                            <img  th:src="@{/images/chamber.png}"  alt="Room">
+                            <div class="number" th:utext="${Room.room_id}"></div>
+                            <div class="price">
+                                <span style="font-size: 15px; color: red">đ </span><span
+                                    th:utext="${Room.priceDay}"></span>
+                            </div>
+                            <input style="display: none;" type="checkbox"
+                                   id="check-status" th:attr="checked=${Room.isEmpty}">
+                            <input style="display: none;" type="text" id="roomId"
+                                   th:attr="value=${Room.room_id}">
+                            <button class="btn btn-success aBtn" type="button"><a
+                                    style="text-decoration: none;color: white"
+                                    th:href="@{'/checkin/add/' + ${Room.room_id}}">Đặt</a></button>
+                        </div>
+                    </li>
+                </th:block>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>

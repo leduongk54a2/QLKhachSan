@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Project</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" >
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{/home :: fragmentNavTop}"></div>
+<div class="container1">
+    <div th:replace="~{/home :: fragmentNavLeft}"></div>
+
+    <div class="content">
+        <form method="get" th:action="@{/quanlyphong/search}">
+            <input name="keyword" type="search" style="width: 70%;margin-left: 10%" />
+            <button class="btn btn-success aBtn" type="submit" value="search">
+                <a  style="color: white;font-size: large;text-decoration: none">Tìm</a>
+            </button>
+
+        </form>
+        <table>
+            <tr>
+                <th>Mã phòng</th>
+                <th>Loại Phòng</th>
+                <th>Giá</th>
+                <th>Tình trạng</th>
+            </tr>
+            <tr th:each="Room: ${Rooms}">
+                <td th:text="${Room.room_id}"></td>
+                <td th:text="${Room.type}"></td>
+                <td th:text="${Room.priceDay}"></td>
+                <td th:text="${Room.isEmpty}"></td>
+                <td>
+                    <button class="btn btn-success aBtn" type="button"><a
+                            style="text-decoration: none;color: white"
+                            th:href="@{'/quanlyphong/edit/' + ${Room.room_id}}">edit</a></button>
+                </td>
+                <td>
+                    <button class="btn btn-success aBtn" type="button"><a
+                            style="text-decoration: none;color: white"
+                            th:href="@{'/quanlyphong/delete/' + ${Room.room_id}}">delete</a></button>
+                </td>
+            </tr>
+        </table>
+        <br>
+        <button class="btn btn-success aBtn" type="button">
+            <a class="fa fa-hotel" style="color: white;font-size: large;text-decoration: none"
+               th:href="@{/quanlyphong/add}"> Thêm Phòng</a>
+        </button>
+    </div>
+</div>
+</body>
+</html>

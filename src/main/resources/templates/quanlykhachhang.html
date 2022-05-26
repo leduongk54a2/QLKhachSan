@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Project</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" >
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{/home :: fragmentNavTop}"></div>
+<div class="container1">
+    <div th:replace="~{/home :: fragmentNavLeft}"></div>
+
+    <div class="content">
+        <form method="get" th:action="@{/khachhang/search}">
+            <input name="keyword" type="search" style="width: 70%;margin-left: 10%" />
+            <button class="btn btn-success aBtn" type="submit" value="search">
+                <a  style="color: white;font-size: large;text-decoration: none">Tìm</a>
+            </button>
+
+        </form>
+        <table>
+            <tr>
+                <th>Mã KH</th>
+                <th>Họ Tên</th>
+                <th>Ngày Sinh</th>
+                <th>CCCD</th>
+                <th>Địa Chỉ</th>
+                <th>Email</th>
+                <th>SĐT</th>
+            </tr>
+            <tr th:each="g: ${Guests}">
+                <td th:text="${g.guestId}"></td>
+                <td th:text="${g.guestName}"></td>
+                <td th:text="${g.birth}"></td>
+                <td th:text="${g.idCard}"></td>
+                <td th:text="${g.address}"></td>
+                <td th:text="${g.email}"></td>
+                <td th:text="${g.phoneNumber}"></td>
+                <td>
+                    <button class="btn btn-success aBtn" type="button"><a
+                            style="text-decoration: none;color: white"
+                            th:href="@{'khachhang/edit/' + ${g.guestId}}">edit</a></button>
+                </td>
+                <td>
+                    <button class="btn btn-success aBtn" type="button"><a
+                            style="text-decoration: none;color: white"
+                            th:href="@{'/khachhang/delete/' + ${g.guestId}}">delete</a></button>
+                </td>
+            </tr>
+        </table>
+        <br>
+    </div>
+</div>
+</body>
+</html>
