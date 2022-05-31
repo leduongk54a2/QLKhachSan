@@ -23,11 +23,14 @@
             <input th:value="@{'Giá:  ' + ${Room.priceDay}+'đ\ngày'}" style="width: 50%;font-size: large"  readonly > <br/>
             <input th:value="@{'Loại:  ' + ${Room.type}}" style="width: 50%;font-size: large"  readonly > <br/>
         </div>
-        <label>Nhập mã KH:</label>
+        <div style="padding-left: 50px">
+            <h1>Thông tin Khách Hàng</h1><br/>
+            <input th:value="@{'Mã khách hàng:  ' + ${Guest.guestId}}" style="width: 50%;font-size: large"  readonly > <br/>
+            <input th:value="@{'Tên:  ' + ${Guest.guestName}}" style="width: 50%;font-size: large"  readonly > <br/>
+        </div>
         <form method="get" th:action="@{'/checkin/add/'+${Room.room_id}+'/submit'}">
-            <input name="keyword" type="search" style="width: 70%;margin-left: 10%" />
-            <button class="btn btn-success aBtn" type="submit" value="search">
-                <a  style="color: white;font-size: large;text-decoration: none">Đặt</a>
+            <button class="btn btn-success aBtn" type="submit" style="margin-left: 25%" >
+                <a  style="color: white;font-size: large;text-decoration: none">Thuê</a>
             </button>
 
         </form>

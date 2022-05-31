@@ -19,14 +19,7 @@
 
     <div class="content">
         <div class="container" style="padding-top: 50px" >
-            <form method="get" th:action="@{/checkout/search}">
-                <label>Nhập mã KH:</label>
-                <input name="keyword" type="search" style="width: 70%;margin-left: 10%" />
-                <button class="btn btn-success aBtn" type="submit" value="search">
-                    <a  style="color: white;font-size: large;text-decoration: none">Tìm</a>
-                </button>
 
-            </form>
             <ul class="row"  >
                 <th:block th:each="Room: ${Rooms}">
                     <li class="item col-md-3">

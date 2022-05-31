@@ -4,10 +4,8 @@ package com.example.qlkhachsan.controller;
 import com.example.qlkhachsan.Repository.GuestRepository;
 import com.example.qlkhachsan.Repository.RentalRepository;
 import com.example.qlkhachsan.Repository.RoomRepository;
-import com.example.qlkhachsan.model.Employee;
-import com.example.qlkhachsan.model.Guest;
-import com.example.qlkhachsan.model.Rental;
-import com.example.qlkhachsan.model.Room;
+import com.example.qlkhachsan.Repository.UserRepository;
+import com.example.qlkhachsan.model.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,11 +33,14 @@ public class CheckinController {
     private RentalRepository renRepo;
     @Autowired
     private GuestRepository gueRepo;
+    @Autowired
+    private UserRepository useRepo;
 
     @GetMapping
     public String showListRoom(Model model, Principal principal) {
         String message = principal.getName() ;
         model.addAttribute("message1", message);
+
         List<Room> lr = (List<Room>) roomRepo.findAll();
         model.addAttribute("Rooms",lr);
         model.addAttribute("Check1","All");
@@ -73,6 +74,8 @@ public class CheckinController {
     public  String showListGuest(@PathVariable(name = "id") Long id, Model model, Principal principal) {
         String message = principal.getName() ;
         model.addAttribute("message1", message);
+        AppUser au = useRepo.findUserName(message);
+        Guest guest = au.getGuest();
         Room room = new Room();
         Optional<Room> optRoom = roomRepo.findById(id);
         if(optRoom.isPresent()){
@@ -86,21 +89,16 @@ public class CheckinController {
             return "datloi";
         }
         model.addAttribute("Room", room );
+        model.addAttribute("Guest",guest);
         return "formdat";
     }
 
     @GetMapping("/add/{id}/submit")
-    public String checkinForm(@PathVariable(name = "id") Long id,@Param("keyword") String keyword,Model model,Principal principal) {
+    public String checkinForm(@PathVariable(name = "id") Long id,Model model,Principal principal) {
         String message = principal.getName() ;
         model.addAttribute("message1", message);
-        keyword = keyword.trim();
-        List<Guest> lg = gueRepo.findAll();
-        Guest guest  = new Guest();
-        for (Guest g : lg) {
-            if(g.getGuestId() == Long.parseLong(keyword) ){
-                guest = g;
-            }
-        }
+        AppUser au = useRepo.findUserName(message);
+        Guest guest = au.getGuest();
         Room room = new Room();
         Optional<Room> optRoom = roomRepo.findById(id);
         if(optRoom.isPresent()){

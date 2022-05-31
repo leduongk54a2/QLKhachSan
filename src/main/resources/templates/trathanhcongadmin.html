@@ -18,15 +18,15 @@
 
     <div class="content">
         <div style="padding-left: 50px">
-            <h1>Thuê thành công</h1><br/>
+            <h1>Thanh toán thành công</h1><br/>
             <input th:value="@{'Mã đặt:  ' + ${Rental.rentalId}}" style="width: 50%;font-size: large"  readonly > <br/>
-            <input th:value="@{'Vào lúc:  ' + ${Rental.checkInDate}}" style="width: 50%;font-size: large"  readonly > <br/>
+            <input th:value="@{'Vào lúc:  ' + ${Rental.checkOutDate}}" style="width: 50%;font-size: large"  readonly > <br/>
         </div>
 
         <br/>
-        <button class="btn btn-success aBtn" type="button" style="margin-left: 40%">
+        <button class="btn btn-success aBtn" type="button">
             <a class="fa fa-hotel" style="color: white;font-size: large;text-decoration: none"
-               th:href="@{/checkin}"> Thuê Tiếp</a>
+               th:href="@{/quanlythue}"> Trả Tiếp</a>
         </button>
 
 

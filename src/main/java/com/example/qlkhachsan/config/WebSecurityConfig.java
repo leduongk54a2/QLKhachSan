@@ -50,12 +50,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();
 
         http.authorizeRequests().antMatchers("/").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
-        http.authorizeRequests().antMatchers("/dangky").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
-        http.authorizeRequests().antMatchers("/checkin").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
-        http.authorizeRequests().antMatchers("/checkout").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
+//        http.authorizeRequests().antMatchers("/dangky").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
+        http.authorizeRequests().antMatchers("/checkin").access("hasRole('ROLE_USER')");
+        http.authorizeRequests().antMatchers("/checkout").access("hasRole('ROLE_USER')");
         http.authorizeRequests().antMatchers("/khachhang").access("hasAnyRole( 'ROLE_ADMIN')");
         http.authorizeRequests().antMatchers("/quanlyphong").access("hasAnyRole( 'ROLE_ADMIN')");
         http.authorizeRequests().antMatchers("/quanlynhanvien").access("hasAnyRole( 'ROLE_ADMIN')");
+        http.authorizeRequests().antMatchers("/quanlythue").access("hasAnyRole( 'ROLE_ADMIN')");
         http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
     }
 

@@ -22,7 +22,7 @@ public class Guest {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "guest_id")
-	private long guestId;
+	private Long guestId;
 	
 	@Column(name = "guest_name")
 	private String guestName;

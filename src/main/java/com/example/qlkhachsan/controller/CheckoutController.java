@@ -4,6 +4,8 @@ package com.example.qlkhachsan.controller;
 import com.example.qlkhachsan.Repository.GuestRepository;
 import com.example.qlkhachsan.Repository.RentalRepository;
 import com.example.qlkhachsan.Repository.RoomRepository;
+import com.example.qlkhachsan.Repository.UserRepository;
+import com.example.qlkhachsan.model.AppUser;
 import com.example.qlkhachsan.model.Guest;
 import com.example.qlkhachsan.model.Rental;
 import com.example.qlkhachsan.model.Room;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -32,17 +35,17 @@ public class CheckoutController {
     private RentalRepository renRepo;
     @Autowired
     private GuestRepository gueRepo;
+    @Autowired
+    private UserRepository useRepo;
+
 
     @GetMapping
-    public String showSearchRoom(Model model) {
-        model.addAttribute("Rooms",new ArrayList<Room>());
-        return "checkout";
-    }
-    @GetMapping("/search")
-    public String searchRoom(@Param("keyword") String keyword, Model model, Principal principal) {
-        String message = principal.getName() ;
+    public String searchRoom(Model model, Principal principal) {
+        String message = principal.getName();
         model.addAttribute("message1", message);
-        List<Long> lr = renRepo.findRoomByGuestID(Long.parseLong(keyword.trim()));
+        AppUser au = useRepo.findUserName(message);
+        Guest guest = au.getGuest();
+        List<Long> lr = renRepo.findRoomByGuestID(guest.getGuestId());
         List<Room> Rooms = roomRepo.findAll();
 
 
@@ -53,11 +56,7 @@ public class CheckoutController {
                 result.add(optRoom.get());
             }
         }
-        Guest guest = new Guest();
-        Optional<Guest> optGuest = gueRepo.findById(Long.parseLong(keyword.trim()));
-        if(optGuest.isPresent()){
-            guest=optGuest.get();
-        }
+
         model.addAttribute("Guest",guest);
         model.addAttribute("Rooms",result);
 
@@ -73,14 +72,40 @@ public class CheckoutController {
         if(optRoom.isPresent()){
             room=optRoom.get();
         }
-        Rental rental =  renRepo.findByGuestIDandRoomID(ud,id).get(0);
-
+        Rental rental = new Rental();
+        List<Rental> lrent = renRepo.findByGuestIDandRoomID(ud,id);
+        rental = lrent.get(lrent.size()-1);
         rental.setCheckOutDate(new Date());
+//        room.setIsEmpty("Trống");
+//        roomRepo.save(room);
+//        renRepo.save(rental);
+        renRepo.save(rental);
         room.setIsEmpty("Trống");
         roomRepo.save(room);
-        renRepo.save(rental);
+        Long getDiff = rental.getCheckOutDate().getTime()-rental.getCheckInDate().getTime();
+        Long getDaysDiff = TimeUnit.MILLISECONDS.toSeconds(getDiff);
+        Double payment = (Math.ceil(Double.parseDouble(getDaysDiff.toString())/86400))*(room.getPriceDay());
         model.addAttribute("Rental",rental);
+        model.addAttribute("payment",payment);
 
+        return "paymentkh";
+    }
+
+    @GetMapping("/add/{id}/{ud}/payment")
+    public  String showResult(@PathVariable(name = "id") Long id,@PathVariable(name = "ud") Long ud , Model model, Principal principal) {
+        Room room = new Room();
+        Optional<Room> optRoom = roomRepo.findById(id);
+        if(optRoom.isPresent()){
+            room=optRoom.get();
+        }
+
+        Rental rental = new Rental();
+        List<Rental> lrent = renRepo.findByGuestIDandRoomID(ud,id);
+        rental = lrent.get(lrent.size()-1);
+
+
+        model.addAttribute("Rental",rental);
         return "trathanhcong";
     }
+
 }

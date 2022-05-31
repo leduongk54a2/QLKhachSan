@@ -12,15 +12,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
 </head>
 <body>
-<div th:replace="~{/home :: fragmentNavTop}"></div>
-<div class="container1">
-    <div th:replace="~{/home :: fragmentNavLeft}"></div>
+<!--<div th:replace="~{/home :: fragmentNavTop}"></div>-->
+<!--<div class="container1">-->
+<!--    <div th:replace="~{/home :: fragmentNavLeft}"></div>-->
 
-    <div class="content">
+<!--    <div class="content">-->
 
         <form method="POST" th:object="${Guest}" style="width: 80%;margin-left: 10%;margin-top: 5%">
 
-
+            <div th:object="${AppUser}">
+                <label>Tên đăng nhập      :</label>
+                <input type="text" th:field="*{userName}" > <br/>
+                <label>mật khẩu      :</label>
+                <input type="password" th:field="*{encrytedPassword}" > <br/>
+            </div>
             <label>Họ Tên      :</label>
             <input type="text" th:field="*{guestName}" > <br/>
             <label>Ngày Sinh   :</label>
@@ -41,7 +46,7 @@
 
         </form>
 
-    </div>
-</div>
+<!--    </div>-->
+<!--</div>-->
 </body>
 </html>
